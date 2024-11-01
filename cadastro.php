@@ -42,11 +42,11 @@
             $senha = $_POST['senha'];
             $confSenha = addslashes($_POST['confSenha']);
 
-            if(!empty($nome) && !empty($email) && !empty($telefone) && !empty($senha) && !empty($confSenha))
+            if(!empty($nome) && !empty($telefone) && !empty($email) && !empty($senha) && !empty($confSenha))
             {   
 
 
-                $usuario->conectar("cadastrousuarioturma33","localhost","usuario","root","");
+                $usuario->conectar("cadastrousuarioturma33","localhost","root","");
 
                 if($usuario->msgErro == "")
                 { echo "conectou no banco";
