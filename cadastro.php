@@ -10,32 +10,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela Cadastro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>CADASTRO DE USUARIO</h2><br>
-    <form action="" method="post">
-        <label>Nome:</label><br>
-        <input type="text" name="nome" id="" placeholder="Nome Completo"><br>
+    <div class="box">
+        <h2>CADASTRO DE USUARIO</h2><br>
+        <form action="" method="post">
+            <div class="box2">
+                <label>Nome:</label><br>
+                <input type="text" name="nome" id="" placeholder="Nome Completo"><br>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" id="" placeholder="Digite o email"><br>
+                <label>Email:</label><br>
+                <input type="email" name="email" id="" placeholder="Digite o email"><br>
 
-        <label>Telefone:</label><br>
-        <input type="tel" name="telefone" id="" placeholder="Telefone Completo"><br>
+                <label>Telefone:</label><br>
+                <input type="tel" name="telefone" id="" placeholder="Telefone Completo"><br>
 
-        <label>Senha:</label><br>
-        <input type="password" name="senha" id="" placeholder="Digite sua Senha"><br>
+                <label>Senha:</label><br>
+                <input type="password" name="senha" id="" placeholder="Digite sua Senha"><br>
 
-        <label>Confirmar Senha:</label><br>
-        <input type="password" name="confSenha" id="" placeholder="Confirme sua Senha"><br><br>
+                <label>Confirmar Senha:</label><br>
+                <input type="password" name="confSenha" id="" placeholder="Confirme sua Senha"><br><br>
 
-        <input type="submit" value="CADASTRAR">
-    </form>
+                <input type="submit" value="CADASTRAR">
+            </div>
+        </form>
+    </div>
     
     <?php
         if(isset($_POST['nome']))
         {
-            echo "passou aqui";
+        
             $nome = $_POST['nome'];
             $telefone = $_POST['telefone'];
             $email = $_POST['email'];
@@ -49,12 +54,13 @@
                 $usuario->conectar("cadastrousuarioturma33","localhost","root","");
 
                 if($usuario->msgErro == "")
-                { echo "conectou no banco";
+                { 
+
                     if($senha == $confSenha)
-                    {echo "conectou no banco";
+                    {
 
                         if($usuario->cadastrar($nome, $telefone, $email, $senha))
-                        { echo "tentou cadastrar";
+                        { 
                             ?>
                                 <!-- bloco de HTML -->
                                 <div class="msg-sucesso">
@@ -65,18 +71,38 @@
                         }
                         else
                         {
-                            echo "tento outra vez".$usuario->msgErro;
+                            ?>
+                            <div class="msg-erro">
+                                <p>Email já cadastrado</p>
+                            </div>
+                        <?php
                         }
                     }
                     else
                     {
-                        echo "tento outra vez".$usuario->msgErro;
+                        ?>
+                            <div class="msg-erro">
+                                <p>Senha e Confirmar senha não conferem</p>
+                            </div>
+                        <?php
                     }
                 }
                 else
                 {
-                    echo "tento outra vez".$usuario->msgErro;
+                    ?>
+                        <div class="msg-erro">
+                            <?php echo "Erro: ".$usuario->msgErro;?>
+                        </div>
+                    <?php
                 }
+            }
+            else
+            {
+                ?>
+                    <div class="msg-erro">
+                        <p>Preencha todos os campos.</p>
+                    </div>
+                <?php
             }
         }
     ?>
