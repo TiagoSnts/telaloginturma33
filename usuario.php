@@ -66,5 +66,40 @@
                 return false;
             }
         }
+        public function listarUsuarios()
+        {
+            global $pdo;
+
+            $sqlListar = $pdo->prepare("SELECT * FROM usuario");
+            $sqlListar->execute();
+            if($sqlListar->rowCount()>0)
+            {
+                $dados = $sqlListar->fetchAll(PDO::FETCH_ASSOC);
+                return $dados;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public function apagarUsuario($id)
+        {
+            global $pdo;
+            
+            $sqlapagar = $pdo->prepare("DELETE FROM usuario WHERE id_usuario = :id");
+            $sqlapagar->bindValue(":id",$id);
+            return $sqlapagar->execute();
+        }
+        public function edicaoUsuario($id,$nome,$email,$telefone)
+        {
+            global $pdo;
+
+            $sqleditar = $pdo->prepare("UPDATE usuario SET nome = :nome, email = :email, telefone = :telefone WHERE id_usuario = :id");
+            $sqleditar->bindValue(":nome",$nome);
+            $sqleditar->bindValue(":email",$email);
+            $sqleditar->bindValue(":telefone",$telefone);
+            $sqleditar->bindValue(":id",$id);
+            return $sqleditar->execute();
+        }
     }
 ?>
